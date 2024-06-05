@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Include Plotly.js from CDN -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Welcome to My Interactive Dashboard</h1>
+    </header>
+    <main>
+        <section id="dashboard">
+            <h2>Dashboard</h2>
+            <!-- Dropdown to select dataset -->
+            <label for="datasetSelect">Select Dataset:</label>
+            <select id="datasetSelect" onchange="updateChart()">
+                <option value="dataset1">Dataset 1</option>
+                <option value="dataset2">Dataset 2</option>
+            </select>
+            <!-- Plotly chart will be rendered here -->
+            <div id="myChart" style="width:100%;max-width:700px;height:400px;"></div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 My Interactive Dashboard. All rights reserved.</p>
+    </footer>
+
+    <!-- JavaScript to create the chart and handle interactions -->
+    <script>
+        function getData(dataset) {
+            if (dataset === 'dataset1') {
+                return {
+                    x: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                    y: [12, 19, 3, 5, 2, 3],
+                    type: 'bar'
+                };
+            } else if (dataset === 'dataset2') {
+                return {
+                    x: ['Apples', 'Oranges', 'Bananas', 'Grapes', 'Pineapples', 'Mangoes'],
+                    y: [15, 10, 13, 7, 8, 5],
+                    type: 'bar'
+                };
+            }
+        }
+
+        function updateChart() {
+            var dataset = document.getElementById('datasetSelect').value;
+            var data = [getData(dataset)];
+
+            var layout = {
+                title: 'Interactive Bar Chart',
+                xaxis: {title: 'Categories'},
+                yaxis: {title: 'Values'}
+            };
+
+            Plotly.newPlot('myChart', data, layout);
+        }
+
+        // Initial chart
+        window.onload = function() {
+            updateChart();
+        };
+    </script>
+</body>
+</html>
